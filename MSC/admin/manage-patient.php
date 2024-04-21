@@ -152,15 +152,14 @@ $cnt=$cnt+1;
 
 <!-- Choose Doctor/nurse etc -->
 <div id="medicalOfficers" style="display: none;">
+ 	<select id="officerType"  style="width: 200px;">
+	 	<option value="">--Select Medical Officer Type--</option>
+		<option value="doctor">Doctor</option>
+		<option value="nurse">Nurse</option>
+	</select>
+	<br/> <br>
     <select id="medicalOfficer" style="width: 200px;">
-	<option value="">Select Doctor/nurse</option>
-                            <?php $ret=mysqli_query($con,"select * from doctorslog");
-                            while($row=mysqli_fetch_array($ret)) {
-                                ?>
-                                <option value="<?php echo htmlentities($row['uid']);?>">
-                                    <?php echo htmlentities($row['username']);?>
-                                </option>
-                            <?php } ?>
+<!-- populated via ajax -->
 	</select>
 </div>
 
@@ -234,7 +233,44 @@ $cnt=$cnt+1;
 				showCancelButton: true,
 				confirmButtonColor: "#3085d6",
 				cancelButtonColor: "#d33",
-				confirmButtonText: "Yes, Send"
+				confirmButtonText: "Yes, Send",
+				didOpen: () => {
+					// Query the contents of the modal
+					const modalContent = Swal.getHtmlContainer();
+
+					function populateDropdown(data) {
+						var select = modalContent.querySelector("#medicalOfficer");
+
+						// Clear existing options
+						select.innerHTML = "";
+
+						// Add options from JSON data
+						data.forEach(function(item) {
+								var option = document.createElement("option");
+								option.value = item.id;
+								option.text = item.username;
+								select.appendChild(option);
+							});
+					}
+			
+					// Find the dropdown within the modal
+					const medicalOfficerDropdown = modalContent.querySelector('#officerType');
+			
+					// Add event listener to the dropdown
+					medicalOfficerDropdown.addEventListener('change', (event) => {
+						// fetch data on option change
+						const value = event.target.value;
+							if(value == ""){
+								populateDropdown([]);
+								return;
+							}
+							// selected option has data
+							fetch('../get-officer.php?user_type=doctor')
+							.then(response => response.json())
+							.then(data => populateDropdown(data))
+							.catch(error => console.error('Error fetching data:', error));
+					});
+				},
 				}).then(async (result) => {
 				if (result.isConfirmed) {
 					if(data == undefined) {
@@ -249,6 +285,7 @@ $cnt=$cnt+1;
 					formData.append("patient_id", userInfo[1])
 					formData.append("name", userInfo[2]);
 					formData.append("regno", userInfo[3]);
+					formData.append("from", "H.R.O");
 					
 					
 					fetch("patient.php",{
@@ -275,5 +312,6 @@ $cnt=$cnt+1;
 		<!-- end: JavaScript Event Handlers for this page -->
 		<!-- end: CLIP-TWO JAVASCRIPTS -->
 	</body>
+	</script>
 </html>
 <?php } ?>
