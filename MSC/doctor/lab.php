@@ -24,6 +24,7 @@ if (isset($patientId)) {
     echo json_encode(array("error" => "Patient ID is required"));
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,7 +54,7 @@ if (isset($patientId)) {
 	<h2 style="text-align:center; margin-top: 50px;"> LAB TEST FORM</h2>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form id="labTestForm" action="" method="POST" style="margin-top: 50px;">
+            <form id="labTestForm2" action="processadd-medicalform.php" method="POST" style="margin-top: 50px;">
                 <div class="form-group">
                     <label for="name"> Name</label>
                     <input type="text" class="form-control" id="name" name="name" readonly value="<?=$patient['name'];?>">
@@ -70,7 +71,7 @@ if (isset($patientId)) {
                 </div>
                 <div class="form-group">
                         <label for="sample"> Sample</label>
-                        <select name="sample" class="form-control"  required="required">
+                        <select name="sampletest" class="form-control"  required="required">
                             <option value="">Select sample</option>
                             <?php $ret=mysqli_query($con,"select * from sample");
                             while($row=mysqli_fetch_array($ret)) {
@@ -84,7 +85,7 @@ if (isset($patientId)) {
                 </div>
                 <div class="form-group">
                         <label for="test"> Lab Test</label>
-                        <select name="test" class="form-control"  required="required">
+                        <select name="labtest" class="form-control"  required="required"> 
                             <option value="">Select Test</option>
                             <?php $ret=mysqli_query($con,"select * from labTest");
                             while($row=mysqli_fetch_array($ret)) {

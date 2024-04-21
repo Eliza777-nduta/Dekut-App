@@ -50,6 +50,32 @@
 									
 								</ul>
 								</li>
+								
+							<li>
+								<a href="javascript:void(0)">
+									<div class="item-content">
+										<div class="item-media">
+											<i class="ti-user"></i>
+										</div>
+										<div class="item-inner">
+											<span class="title"> Lab Technicians </span><i class="icon-arrow"></i>
+										</div>
+									</div>
+								</a>
+								<ul class="sub-menu">
+									<li>
+										<a href="add-technician.php">
+											<span class="title"> Add Technician </span>
+										</a>
+									</li>
+									<li>
+										<a href="manage-technician.php">
+											<span class="title"> Manage Technician  </span>
+										</a>
+									</li>
+									
+								</ul>
+								</li>
 								<li>
 								<a href="javascript:void(0)">
 									<div class="item-content">
@@ -177,4 +203,4 @@
 						
 					</nav>
 					</div>
-			</div>
+			</div>f

@@ -14,7 +14,6 @@ $count_sql = "SELECT COUNT(*) AS unread_count FROM notifications WHERE user_id =
 
 // SQL query to get unread notifications for the logged in user
 $sql = "SELECT * FROM notifications WHERE user_id = '$user_id' AND is_read = 0";
-
 // Execute query
 $count_result = mysqli_query($con, $count_sql);
 $notifications_result = mysqli_query($con, $sql);

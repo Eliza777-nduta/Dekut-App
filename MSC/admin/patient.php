@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
    
    $message = "You have a new patient: ".$name;
 
-   $sql= "insert into pusher(patient_id, name,regno) values('$patient_id','$name','$regno')";
+   $sql= "insert into pusher(patient_id, name,regno, next_dept) values('$patient_id','$name','$regno', 'doctor')";
    // insert into notiffiactions table
    $notificationsSql = "INSERT INTO notifications(`user_id`,	`patient_id`,	`message`, `from`) VALUES('$medical_officer_id', '$patient_id','$message', '$from')";
 

@@ -5,8 +5,8 @@ include('include/config.php');
 
 if(isset($_GET['del']))
 		  {
-		  	$pid=$_GET['id'];
-		          mysqli_query($con,"delete from users where id ='$pid'");
+		  	$patient_id=$_GET['id'];
+		          mysqli_query($con,"delete from patients where id ='$patient_id'");
                   $_SESSION['msg']="data deleted !!";
 		  }
 

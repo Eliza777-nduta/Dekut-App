@@ -2,7 +2,7 @@
 <?php
 error_reporting(0);
 require_once 'include/config.php';
-$sql= "select * from pusher ORDER BY id DESC";
+$sql= "select * from pusher WHERE next_dept='doctor' ORDER BY id DESC";
 $result = $con->query($sql);
 
 ?>
@@ -25,6 +25,7 @@ $result = $con->query($sql);
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/plugins.css">
     <link rel="stylesheet" href="assets/css/themes/theme-1.css" id="skin_color" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
     <title>Patient List</title>
     <style>
 .eye-viewed {
@@ -39,7 +40,7 @@ $result = $con->query($sql);
     <div class="container">
         <div class="row">
             <div class="col-md-offset-4">
-            <table class="table table-bordered" style="margin-top: 100px;">
+            <table class="table table-bordered" id="patientsTbl" style="margin-top: 100px;">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -83,5 +84,12 @@ if($result->num_rows > 0){
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+    <script>
+        $(document).ready(function (){
+            $("#patientsTbl").DataTable();
+        })
+    </script>
 </body>
 </html>

@@ -16,7 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       // insert into medical history
        // Insert data into tblmedicalhistory
        $sql = "INSERT INTO tblmedicalhistory (patient_id, complain, illnesshistory, physicalexam, diagnosis,next_dept) VALUES ('$patient_id', '$complain', '$illnesshistory', '$physicalexam', '$diagnosis', '$next_dept')";
-        
+
+       // update the pusher to push records to next departpement
+        $sqlPusher = "UPDATE pusher SET next_dept = '$next_dept' WHERE patient_id = '$patient_id';";
+        $con->query($sqlPusher);
        // Execute query
        if ($con->query($sql) === TRUE) {
            // Data inserted successfully
