@@ -1,0 +1,45 @@
+header{
+    background-color: #8f6dec;
+    color: #fff;
+}
+#heading{
+    text-align: center;
+    padding: 20px;
+    letter-spacing: 2px;
+    font-weight: 500;
+}
+header .dropdown-menu dropdown-dark .btn btn-secondary dropdown-toggle{
+    float: right;
+}
+
+.dropdown,#dropdownMenuButton1{
+    float: right;
+
+}
+.box1 h4{
+    float: left;
+    
+}
+.box1 button{
+    float: right;
+}
+.container{
+    margin-top: 50px;
+}
+
+button .close{
+    float: right;
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .close {
+    float: right; /* Align close button to the start (left) of the header */
+    margin-top: -8px; /* Adjust vertical alignment if needed */
+    color: #fff;
+    background-color: rgb(76, 76, 165);
+  }
+  
