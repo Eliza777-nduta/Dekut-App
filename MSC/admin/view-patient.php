@@ -156,8 +156,6 @@ while ($row=mysqli_fetch_array($ret)) {
 
 $ret=mysqli_query($con,"select * from tblmedicalhistory  where PatientID='$uid'");
 
-
-
  ?>
 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
   <tr align="center">

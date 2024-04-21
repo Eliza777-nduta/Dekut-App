@@ -8,7 +8,7 @@ if(strlen($_SESSION['id']==0)) {
 if(isset($_POST['submit']))
   {
     
-    $id=$_GET['patientID'];
+    $id=$_GET['uid'];
     $chiefc=$_POST['complain'];
     $illnesshist=$_POST['illnesshistory'];
     $phyexam=$_POST['physicalexam'];
@@ -31,6 +31,11 @@ if(isset($_POST['submit']))
   
 }
 
+
+/// set current notification as read
+$uid = $_GET['uid'];
+$sql = "UPDATE notifications SET is_read = 1 WHERE patient_id = '$uid'";
+$con->query($sql);
 ?>
 
 
@@ -120,8 +125,8 @@ if(isset($_POST['submit']))
 <div class="col-md-12">
 <h5 class="over-title margin-bottom-15">Manage <span class="text-bold">Patients</span></h5>
 <?php
-  $id=$_GET['patientID'];
-  $ret=mysqli_query($con,"select * from patients where patientID='$id' LIMIT 1;");
+  $id=$_GET['uid'];
+  $ret=mysqli_query($con,"select * from patients where id='$id' LIMIT 1;");
   $cnt=1;
 while ($row=mysqli_fetch_array($ret)) {
   ?>

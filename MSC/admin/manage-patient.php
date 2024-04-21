@@ -278,32 +278,37 @@ $cnt=$cnt+1;
 					return;
 					}
 					let userInfo = Object.values(data);
-
-					
+					const modalContent = Swal.getHtmlContainer();
+					const medicalOfficerDropdown = modalContent.querySelector('#medicalOfficer');
+					const officer = medicalOfficerDropdown.value;
 					
 					let formData = new FormData();
 					formData.append("patient_id", userInfo[1])
 					formData.append("name", userInfo[2]);
 					formData.append("regno", userInfo[3]);
 					formData.append("from", "H.R.O");
-					
+					formData.append("medical_officer_id", officer);
 					
 					fetch("patient.php",{
 						method: "POST",
 						body: formData
-					}).then(res => res.text()).then(res => {
-						Swal.fire({
+					}).then(res => res.json()).then(res => {
+						if(res.success){
+							Swal.fire({
 							title: "Sent!",
 							text: "Doctor has been notified about this patient.",
 							icon: "success"
 						});
-					}).catch(error => {
-						console.error("Error posting patient to doctor: ", error);
-						Swal.fire({
+						} else{
+							Swal.fire({
 							title: "Error!",
 							text: "Unable to send notification to doctor. Please try again.",
 							icon: "error"
 						});
+						}
+						
+					}).catch(error => {
+						console.error("Error posting patient to doctor: ", error);
 					});
 				}
 				});
