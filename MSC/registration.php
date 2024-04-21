@@ -18,16 +18,7 @@ if($query)
 	echo "<script>alert('Successfully Registered. You can login now');</script>";
 	header("location:user-login.php");
 }
-if($result){
-	$last_id=mysql_insert_id($con);
-	if($last_id){
-		$code=rand(1,99999);
-		$patientID= "PID_".$code."_".$last_id;
-		$query= "UPDATE user SET patientID='".$patientID."' WHERE id='".$last_id."'";
-		$res=mysql_query($con,$query);
 
-	}
-}
 }
 ?>
 
