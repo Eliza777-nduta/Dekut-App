@@ -3,41 +3,16 @@ session_start();
 error_reporting(0);
 include('include/config.php');
 
-$id=$_GET['uid'];
-if(isset($id)){
-  $_SESSION['patient_id'] = $id;
+$uid=$_GET['uid'];
+if(isset($uid)){
+  $_SESSION['patient_id'] = $uid;
 }
 
 if(strlen($_SESSION['id']==0)) {
  header('location:logout.php');
-  } else{
-if(isset($_POST['submit']))
-  {
-    $chiefc=$_POST['complain'];
-    $illnesshist=$_POST['illnesshistory'];
-    $phyexam=$_POST['physicalexam'];
-    $diagnosis=$_POST['diagnosis'];
-    $investigation=$_POST['investigation'];
-  
-   
-   
- 
-      $query.=mysqli_query($con, "insert   tblmedicalhistory(PatientID,ChiefComplain,IlnessHistory,PhyscalExam,Diagnosis,Investigation)value('$uid','$chiefc','$illnesshist','$phyexam','$diagnosis','$investigation')");
-    if ($query) {
-    echo '<script>alert("Medicle history has been added.")</script>';
-    
   }
-  else
-    {
-      echo '<script>alert("Something Went Wrong. Please try again")</script>';
-    }
-
-  
-}
-
 
 /// set current notification as read
-$uid = $_GET['uid'];
 $sql = "UPDATE notifications SET is_read = 1 WHERE patient_id = '$uid'";
 $con->query($sql);
 ?>
@@ -168,7 +143,7 @@ while ($row=mysqli_fetch_array($ret)) {
 </table>
 <?php  
 
-$ret=mysqli_query($con,"select * from tblmedicalhistory  where PatientID='$patientID'");
+$ret=mysqli_query($con,"select * from tblmedicalhistory  where patient_id='$uid'");
 
 
 
@@ -179,12 +154,11 @@ $ret=mysqli_query($con,"select * from tblmedicalhistory  where PatientID='$patie
   </tr>
   <tr>
     <th>#</th>
-    <th>PatientID</th>
 <th> Chief complain</th>
 <th> Illness History</th>
 <th> Physical Exam</th>
 <th> Diagnosis</th>
-<th> Investigation</th>
+<th> Next Dept</th>
 <th>Visit Date</th>
 </tr>
 <?php  
@@ -192,21 +166,29 @@ while ($row=mysqli_fetch_array($ret)) {
   ?>
 <tr>
   <td><?php echo $cnt;?></td>
-  <td><?php  echo $row['patientID'];?></td>
  <td><?php  echo $row['complain'];?></td>
  <td><?php  echo $row['illnesshistory'];?></td>
  <td><?php  echo $row['physicalexam'];?></td> 
   <td><?php  echo $row['diagnosis'];?></td>
-  <td><?php  echo $row['investigation'];?></td>
+  <td><?php  echo $row['next_dept'];?></td>
   <td><?php  echo $row['CreationDate'];?></td> 
 </tr>
 <?php $cnt=$cnt+1;} ?>
 </table>
 
+<?php  
+
+// $ret=mysqli_query($con,"select * from tblmedicalhistory  where patient_id='$patientID'");
+
+
+
+ ?>
+
+
 <p align="center">                            
  <button class="btn btn-primary waves-effect waves-light w-lg" data-toggle="modal" data-target="#myModal">Add Medical History</button></p>  
 
-<?php  ?>
+ <p>Here is some content</p>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" style="width:70%; height:100%;">
      <div class="modal-content">
@@ -219,13 +201,14 @@ while ($row=mysqli_fetch_array($ret)) {
             <div class="modal-body">
             <table class="table table-bordered table-hover data-tables">
 
-    <form method="post" name="submit">
+    <form action="medical-history.php" id="myForm" method="POST">
 
     <tr>
     <th>Chief Complain :</th>
     <td>
     <textarea name="complain" placeholder="Chief Complain" rows="3" cols="5" class="form-control wd-450" required="true"></textarea></td>
   </tr> 
+  <tr>
     <th>History of presenting illness :</th>
     <td>
     <textarea name="illnesshistory" placeholder="history of illness" rows="3" cols="5" class="form-control wd-450" required="true"></textarea></td>
@@ -255,13 +238,13 @@ while ($row=mysqli_fetch_array($ret)) {
 <tr>
     <div class="form-group">
     <th>Investigation</th>
-    <td>  
-  <select id="dropdown" class="form-control">
-    <option value="select"> Please select</option> 
-    <option value="lab.php"> Lab</option>
-    <option value="imaging.php">Imaging</option>
-    <option value="nursing.php">Nursing</option>
-    <option value="prescription.php"> Pharmacy</option>
+    <td> 
+  <label for="cars">Please select:</label> 
+  <select id="dropdown" name="redirect_page" class="form-control"> 
+    <option value="lab:lab.php"> Lab</option>
+    <option value="lab:imaging.php">Imaging</option>
+    <option value="nurse:nursing.php">Nursing</option>
+    <option value="pharmacy:prescription.php"> Pharmacy</option>
 </select>
   </td>
 </div>
@@ -319,19 +302,7 @@ while ($row=mysqli_fetch_array($ret)) {
 				Main.init();
 				FormElements.init();
 			});
-		</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-  var dropdown = document.getElementById("dropdown");
-
-  dropdown.addEventListener("change", function() {
-    var selectedPage = dropdown.value;
-    // Redirect to the selected page
-    window.location.href = selectedPage;
-  });
-});
 
 </script>
 	</body>
 </html>
-<?php }  ?>

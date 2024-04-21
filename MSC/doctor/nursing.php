@@ -1,24 +1,24 @@
 <?php
 include_once('include/config.php');
-
+session_start();
 
 // Check if patient ID is provided
-if (isset($_GET['id'])) {
-    $patientId = $_GET['id'];
+$patientId = $_SESSION['patient_id'];
+if (isset($patientId)) {
     
     // Prepare and execute SQL query to fetch patient details
-    $sql = "SELECT * FROM patient WHERE id = $patientId";
-    $result = $conn->query($sql);
+    $sql = "SELECT * FROM patients WHERE id = '$patientId' LIMIT 1;";
 
-    if ($result->num_rows > 0) {
-        // Patient found, return JSON response
-        $row = $result->fetch_assoc();
-        echo json_encode($row);
-    } else {
-        // Patient not found, return error
-        http_response_code(404);
-        echo json_encode(array("error" => "Patient not found"));
+    $result = $con->query($sql);
+
+    if ($result->num_rows == 0) {
+        // redirect to home, since no patient like this was found
+        header("Location: dashboard.php");
+        exit();
     }
+    
+    $patient = $result->fetch_assoc();
+
 } else {
     // No patient ID provided, return error
     http_response_code(400);
@@ -51,29 +51,24 @@ if (isset($_GET['id'])) {
 <?php include('include/sidebar.php');?>
 <?php include('include/header.php');?>
 <div class="container">
-	<h2 style="text-align:center; margin-top: 50px;"> Nursing Room</h2>
+	<h2 style="text-align:center; margin-top: 100px;"> Nursing Room</h2>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <form id="labTestForm" action="" method="POST" style="margin-top: 50px;">
 
             <div class="form-group">
-                    <label for="user_id"> PatientID</label>
-                    <input type="text" class="form-control" id="patientId" name="patientId" >
-                </div>
-
-                <div class="form-group">
                     <label for="name"> Name</label>
-                    <input type="text" class="form-control" id="name" name="name" readonly>
+                    <input type="text" class="form-control" id="name" name="name" readonly value="<?=$patient['name'];?>">
                 </div>
                 <div class="col-sm">
                 <div class="form-group">
                     <label for="regno"> Registration No.</label>
-                    <input type="text" class="form-control" id="regno" name="regno" readonly>
+                    <input type="text" class="form-control" id="regno" name="regno" value="<?=$patient['registrationno'];?>" readonly>
                 </div>
                 <div class="col-sm">
                 <div class="form-group">
                     <label for="phoneno"> Phone Number</label>
-                    <input type="text" class="form-control" id="phoneno" name="phoneno" readonly>
+                    <input type="text" class="form-control" id="phoneno" name="phoneno" value="<?=$patient['phoneNo'];?>" readonly>
                 </div>
                 <!--
                 <div class="form-group">

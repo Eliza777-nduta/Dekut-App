@@ -6,7 +6,7 @@ if(isset($_POST['submit']))
 {
 $puname=$_POST['username'];	
 $ppwd=md5($_POST['password']);
-$ret=mysqli_query($con,"SELECT * FROM users WHERE email='$puname' and password='$ppwd'");
+$ret=mysqli_query($con,"SELECT * FROM patients WHERE email='$puname' and password='$ppwd'");
 $num=mysqli_fetch_array($ret);
 if($num>0)
 {

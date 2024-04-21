@@ -1,4 +1,32 @@
 <?php
+require_once('include/config.php');
+session_start();
+
+// Check if patient ID is provided
+$patientId = $_SESSION['patient_id'];
+if (isset($patientId)) {
+    
+    // Prepare and execute SQL query to fetch patient details
+    $sql = "SELECT * FROM patients WHERE id = '$patientId' LIMIT 1;";
+
+    $result = $con->query($sql);
+
+    if ($result->num_rows == 0) {
+        // redirect to home, since no patient like this was found
+        header("Location: dashboard.php");
+        exit();
+    }
+    
+    $patient = $result->fetch_assoc();
+
+} else {
+    // No patient ID provided, return error
+    http_response_code(400);
+    echo json_encode(array("error" => "Patient ID is required"));
+}
+?>
+
+<?php
 include_once('include/config.php');
 if(isset($_POST['submit']))
 {
@@ -44,7 +72,7 @@ if(isset($_GET['del'])) {
     <link href="vendor/switchery/switchery.min.css" rel="stylesheet" media="screen">
     <link href="vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" media="screen">
     <link href="vendor/select2/select2.min.css" rel="stylesheet" media="screen">
-    <link href="vendor/bootstrap-datepicker/bootstrap-datepicker3.standalone.min.css" rel="stylesheet" media="screen">
+    <link href="vendor/bootstrap-datepicker/bootstrap-datepicker3ubmittandalone.min.css" rel="stylesheet" media="screen">
     <link href="vendor/bootstrap-timepicker/bootstrap-timepicker.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/plugins.css">
@@ -61,7 +89,7 @@ if(isset($_GET['del'])) {
             <form action="" method="POST" style="margin-top: 10px;" id="myform">
                 <div class="form-group">
                     <label for="name"> Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder=" Patient Name">
+                    <input type="text" class="form-control" id="name" name="name" readonly value="<?=$patient['name'];?>">
                 </div>
                 <div class="col-sm">
                     <div class="form-group">

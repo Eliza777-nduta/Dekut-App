@@ -69,29 +69,16 @@ if (isset($patientId)) {
                     <label for="phoneno"> Phone Number</label>
                     <input type="text" class="form-control" id="phoneno" name="phoneno" value="<?=$patient['phoneNo'];?>" readonly>
                 </div>
+                
                 <div class="form-group">
-                        <label for="sample"> Sample</label>
-                        <select name="sample" class="form-control"  required="required">
-                            <option value="">Select sample</option>
-                            <?php $ret=mysqli_query($con,"select * from sample");
-                            while($row=mysqli_fetch_array($ret)) {
-                                ?>
-                                <option value="<?php echo htmlentities($row['sample']);?>">
-                                    <?php echo htmlentities($row['sample']);?>
-                                </option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                        <label for="test"> Lab Test</label>
+                        <label for="test"> Imaging</label>
                         <select name="test" class="form-control"  required="required">
-                            <option value="">Select Test</option>
-                            <?php $ret=mysqli_query($con,"select * from labTest");
+                            <option value="">Select imaging</option>
+                            <?php $ret=mysqli_query($con,"select * from imaging");
                             while($row=mysqli_fetch_array($ret)) {
                                 ?>
-                                <option value="<?php echo htmlentities($row['test']);?>">
-                                    <?php echo htmlentities($row['test']);?>
+                                <option value="<?php echo htmlentities($row['imaging']);?>">
+                                    <?php echo htmlentities($row['imaging']);?>
                                 </option>
                             <?php } ?>
                         </select>
