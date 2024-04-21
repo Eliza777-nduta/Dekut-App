@@ -152,7 +152,7 @@ Patient Address
 
 <a href="view-patient.php"><button type="submit" name="submit" id="submit" class="btn btn-o btn-primary">Add</a>
 </button>
-</form>
+</form>i
 </div>
 </div>
 </div>

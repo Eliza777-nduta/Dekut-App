@@ -62,7 +62,7 @@ if($result->num_rows > 0){
             <td><?php echo $row['regno'];?></td>
             <td><?php echo date('d-M-Y H:i A', $date);?></td>
             <td>
-            <a href="view-patient.php?uid=<?php echo $row['patientID'];?>"><i class="fa fa-eye" ></i></a>
+            <a href="view-patient.php?uid=<?php echo $row['patient_id'];?>"><i class="fa fa-eye" ></i></a>
             </td>
         </tr>
         <?php

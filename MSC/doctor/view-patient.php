@@ -2,13 +2,17 @@
 session_start();
 error_reporting(0);
 include('include/config.php');
+
+$id=$_GET['uid'];
+if(isset($id)){
+  $_SESSION['patient_id'] = $id;
+}
+
 if(strlen($_SESSION['id']==0)) {
  header('location:logout.php');
   } else{
 if(isset($_POST['submit']))
   {
-    
-    $id=$_GET['uid'];
     $chiefc=$_POST['complain'];
     $illnesshist=$_POST['illnesshistory'];
     $phyexam=$_POST['physicalexam'];
