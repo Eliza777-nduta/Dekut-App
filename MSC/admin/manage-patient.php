@@ -265,7 +265,7 @@ $cnt=$cnt+1;
 								return;
 							}
 							// selected option has data
-							fetch('../get-officer.php?user_type=doctor')
+							fetch('../get-officer.php?user_type='+value)
 							.then(response => response.json())
 							.then(data => populateDropdown(data))
 							.catch(error => console.error('Error fetching data:', error));
