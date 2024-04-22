@@ -1,35 +1,31 @@
 <?php
 session_start();
-error_reporting(0);
 include("include/config.php");
+error_reporting(0);
 if(isset($_POST['submit']))
 {
-$uname=$_POST['username'];	
-$ppwd=md5($_POST['password']);
-$ret=mysqli_query($con,"SELECT * FROM patients WHERE email='$uname' and password='$ppwd'");
+$name=$_POST['username'];
+$dpassword=md5($_POST['password']);	
+$ret=mysqli_query($con,"SELECT * FROM nurses WHERE nurseEmail='$name' and password='$dpassword'");
 $num=mysqli_fetch_array($ret);
 if($num>0)
 {
-$_SESSION['login']=$_POST['username'];
+$_SESSION['nurse']=$_POST['username'];
 $_SESSION['id']=$num['id'];
-$id=$num['id'];
-$host=$_SERVER['HTTP_HOST'];
+$uid=$num['id'];
 $uip=$_SERVER['REMOTE_ADDR'];
 $status=1;
-// For stroing log if user login successfull
-$log=mysqli_query($con,"insert into userlog(uid,username,userip,status) values('$pid','$puname','$uip','$status')");
-header('location:dashboard.php');
+
+header("location:dashboard.php");
 }
 else
 {
-// For stroing log if user login unsuccessfull
-$_SESSION['login']=$_POST['username'];	
+
 $uip=$_SERVER['REMOTE_ADDR'];
 $status=0;
-mysqli_query($con,"insert into userlog(username,userip,status) values('$puname','$uip','$status')");
 $_SESSION['errmsg']="Invalid username or password";
+header("location:index.php");
 
-header("location:dashboard.php");
 }
 }
 ?>
@@ -38,7 +34,7 @@ header("location:dashboard.php");
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>User-Login</title>
+		<title>Nurse Login</title>
 		
 		<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -55,7 +51,7 @@ header("location:dashboard.php");
 		<div class="row">
 			<div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
 				<div class="logo margin-top-30">
-				<a href="../index.php"><h2> DEKUT| Patient Login</h2></a>
+				<a href="../../index.php">	<h2> Medical Center | Nurse Login</h2></a>
 				</div>
 
 				<div class="box-login">
@@ -77,7 +73,8 @@ header("location:dashboard.php");
 								<span class="input-icon">
 									<input type="password" class="form-control password" name="password" placeholder="Password">
 									<i class="fa fa-lock"></i>
-									 </span><a href="forgot-password.php">
+									 </span>
+									 <a href="forgot-password.php">
 									Forgot Password ?
 								</a>
 							</div>
@@ -87,17 +84,13 @@ header("location:dashboard.php");
 									Login <i class="fa fa-arrow-circle-right"></i>
 								</button>
 							</div>
-							<div class="new-account">
-								Don't have an account yet?
-								<a href="registration.php">
-									Create an account
-								</a>
-							</div>
+							
+						
 						</fieldset>
 					</form>
 
 					<div class="copyright">
-						</span><span class="text-bold text-uppercase"> Dekut Medical Center</span>.
+					<span class="text-bold text-uppercase">Dekut Medical Center</span>
 					</div>
 			
 				</div>

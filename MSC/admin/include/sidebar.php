@@ -69,8 +69,34 @@
 										</a>
 									</li>
 									<li>
-										<a href="manage-technician.php">
+										<a href="manage-technicians.php">
 											<span class="title"> Manage Technician  </span>
+										</a>
+									</li>
+									
+								</ul>
+								</li>
+									
+							<li>
+								<a href="javascript:void(0)">
+									<div class="item-content">
+										<div class="item-media">
+											<i class="ti-user"></i>
+										</div>
+										<div class="item-inner">
+											<span class="title"> Nurses </span><i class="icon-arrow"></i>
+										</div>
+									</div>
+								</a>
+								<ul class="sub-menu">
+									<li>
+										<a href="add-nurse.php">
+											<span class="title"> Add Nurse </span>
+										</a>
+									</li>
+									<li>
+										<a href="manage-nurses.php">
+											<span class="title"> Manage Nurse  </span>
 										</a>
 									</li>
 									

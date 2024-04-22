@@ -81,68 +81,46 @@ $msg="Technician Details updated Successfully";
 										<div class="col-lg-8 col-md-12">
 											<div class="panel panel-white">
 												<div class="panel-heading">
-													<h5 class="panel-title">Edit Doctor info</h5>
+													<h5 class="panel-title">Edit Technician info</h5>
 												</div>
 												<div class="panel-body">
-									<?php $sql=mysqli_query($con,"select * from doctors where id='$did'");
+									<?php $sql=mysqli_query($con,"select * from technician where id='$tech_id'");
 while($data=mysqli_fetch_array($sql))
 {
 ?>
-<h4><?php echo htmlentities($data['doctorName']);?>'s Profile</h4>
+<h4><?php echo htmlentities($data['name']);?>'s Profile</h4>
 <p><b>Profile Reg. Date: </b><?php echo htmlentities($data['creationDate']);?></p>
 <?php if($data['updationDate']){?>
 <p><b>Profile Last Updation Date: </b><?php echo htmlentities($data['updationDate']);?></p>
 <?php } ?>
 <hr />
 													<form role="form" name="adddoc" method="post" onSubmit="return valid();">
-														<div class="form-group">
-															<label for="DoctorSpecialization">
-																Doctor Specialization
-															</label>
-							<select name="Doctorspecialization" class="form-control" required="required">
-					<option value="<?php echo htmlentities($data['specilization']);?>">
-					<?php echo htmlentities($data['specilization']);?></option>
-<?php $ret=mysqli_query($con,"select * from doctorspecilization");
-while($row=mysqli_fetch_array($ret))
-{
-?>
-																<option value="<?php echo htmlentities($row['specilization']);?>">
-																	<?php echo htmlentities($row['specilization']);?>
-																</option>
-																<?php } ?>
-																
-															</select>
-														</div>
+														
 
 <div class="form-group">
-															<label for="doctorname">
-																 Doctor Name
+															<label for="techname">
+																 Technician Name
 															</label>
-	<input type="text" name="docname" class="form-control" value="<?php echo htmlentities($data['doctorName']);?>" >
+	<input type="text" name="technicianname" class="form-control" value="<?php echo htmlentities($data['name']);?>" >
 														</div>
 
 
-<div class="form-group">
-															<label for="address">
-																 Doctor Clinic Address
-															</label>
-					<textarea name="clinicaddress" class="form-control"><?php echo htmlentities($data['address']);?></textarea>
-														</div>
+
 <div class="form-group">
 															
 	
 <div class="form-group">
-									<label for="fess">
+									<label for="techcontact">
 																 Doctor Contact no
 															</label>
-					<input type="text" name="doccontact" class="form-control" required="required"  value="<?php echo htmlentities($data['contactno']);?>">
+					<input type="text" name="doccontact" class="form-control" required="required"  value="<?php echo htmlentities($data['phone']);?>">
 														</div>
 
 <div class="form-group">
-									<label for="fess">
-																 Doctor Email
+									<label for="techemail">
+																 Technician Email
 															</label>
-					<input type="email" name="docemail" class="form-control"  readonly="readonly"  value="<?php echo htmlentities($data['docEmail']);?>">
+					<input type="email" name="technicianemail" class="form-control"  readonly="readonly"  value="<?php echo htmlentities($data['email']);?>">
 														</div>
 
 

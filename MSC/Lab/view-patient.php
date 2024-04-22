@@ -208,6 +208,14 @@ while ($row=mysqli_fetch_array($ret)) {
   <label for="cars">Please select:</label> 
   <select id="dropdown" name="redirect_page" class="form-control"> 
     <option value="doctor:dashboard.php"> Doctor</option>
+    <option value="">Select Doctor</option>
+                            <?php $ret=mysqli_query($con,"select * from doctorslog");
+                            while($row=mysqli_fetch_array($ret)) {
+                                ?>
+                                <option value="<?php echo htmlentities($row['uid']);?>">
+                                    <?php echo htmlentities($row['username']);?>
+                                </option>
+                            <?php } ?>
 </select>
   </td>
 </div>
