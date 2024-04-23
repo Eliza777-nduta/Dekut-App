@@ -50,7 +50,7 @@ echo "<script>window.location.href ='index.php'</script>";
                                 <ul>
                                     <li><a href="MSC/user-login.php">Patient</a></li>
                                     <li><a href="MSC/doctor">Doctor</a></li>
-                                    <li><a href="MSC/admin">Admin</a></li>
+                                    <li><a href="MSC/admin">HRO</a></li>
                                     <li><a href="MSC/pharmacist/">Pharmacist</a></li>
                                     <li><a href="MSC/lab">Lab</a></li>
                                 </ul>
