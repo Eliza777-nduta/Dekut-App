@@ -12,8 +12,7 @@ if (isset($_POST['submit'])) {
 	$dob = $_POST['dob'];
 	$gender = $_POST['gender'];
 	$password = md5($_POST['password']);
-	$id = $patient_id;
-	$query = mysqli_query($con, "insert into patients(name,registrationno,email,school,course,address,phoneNo,dob,gender,password) values('$id', '$fname','$regNumber','$email','$school','$course','$address','$phoneNumber','$dob','$gender','$password')");
+	$query = mysqli_query($con, "insert into patients(name,registrationno,email,school,course,address,phoneNo,dob,gender,password) values('$fname','$regNumber','$email','$school','$course','$address','$phoneNumber','$dob','$gender','$password')");
 	if ($query) {
 		echo "<script>alert('Successfully Registered. You can login now');</script>";
 		header("location:manage-patient.php");
